@@ -106,17 +106,19 @@
       const articleTags = article.getAttribute('data-tags');
       console.log(articleTags);
       /* split tags into array */
-  
+      const articleTagsArray = articleTags.split(' ');
+      console.log(articleTagsArray);
       /* START LOOP: for each tag */
-  
+      for(let tag of articleTagsArray){
         /* generate HTML of the link */
-  
+        const linkHTML = '<li><a href="#' + tag + '">' + tag + '</a></li>';
+        console.log (linkHTML);
         /* add generated code to html variable */
-  
+        html = html +linkHTML;
       /* END LOOP: for each tag */
-  
+      }
       /* insert HTML of all the links into the tags wrapper */
-  
+      tagsList.innerHTML = html;
     /* END LOOP: for every article: */
     }
   }
