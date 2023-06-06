@@ -48,8 +48,8 @@
 
   const optArticleSelector = '.post',
     optTitleSelector = '.post-title',
-    optTitleListSelector = '.titles';
-    
+    optTitleListSelector = '.titles',
+    optArticleAuthorSelector = '.post-author';
 
   const generateTitleLinks = function(customSelector = ''){
   console.log(customSelector);
@@ -170,4 +170,46 @@
   
   addClickListenersToTags();
 
+
+  function generateAuthors (){
+
+    
+    
+    const articles = document.querySelectorAll('article');
+    for(let article of articles){
+      const author = article.querySelector(optArticleAuthorSelector);
+      let html = '';
+      const articleAuthor = article.getAttribute('data-author');
+      console.log(articleAuthor);
+      const linkHTML = '<li><a href="#' + author + '">' + author + '</a></li>';
+      html = html +linkHTML;
+    }
+    
+  }
+  generateAuthors ();
+  
+  function addClickListenersToAuthors(){
+    const links = document.querySelectorAll('.list.authors a, .list.tags a');
+    for (let link of links) {
+      link.addEventListener('click', authorClickHandler);
+    }
+  }
+  addClickListenersToAuthors();
+
+  function authorClickHandler(event) {
+    event.preventDefault();
+    const clickedElement = this;
+    const href = clickedElement.getAttribute('href');
+    const author = href.replace('#author-','');
+    const activeLinks = document.querySelectorAll('a.active[href^="#author-"]');
+    for (let activeLink of activeLinks){
+      activeLink.classList.remove('active');
+    }
+    const allAuthorLinksHref = document.querySelectorAll('a[href="' + href + '"]');
+    for (let authorLinkHref of allAuthorLinksHref) {
+      authorLinkHref.classList.add('active');
+    }
+    generateTitleLinks('[data-author="' + author + '"]');
+  }
+  // Nie jestem pewny rozwiązania i też nie rozumiem dlaczego po kliknięciu w tag lub autora czyści mi listę arykułów 
 }
