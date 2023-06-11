@@ -84,7 +84,7 @@
       if(tags[tag] < params.min){
         params.min = tags[tag];
       }
-      console.log(tag + ' is used ' + tags[tag] + ' times');
+      //console.log(tag + ' is used ' + tags[tag] + ' times');
     }
     return params;
   };
@@ -138,7 +138,7 @@
     const tagList = document.querySelector(optTagsListSelector);
     /* [NEW] create variable for all links HTML code */
     const tagsParams = calculateTagsParams(allTags); 
-    console.log('tagsParams:', tagsParams);
+    //console.log('tagsParams:', tagsParams);
 
     let allTagsHTML = '';
 
@@ -147,7 +147,7 @@
       /* [NEW] generate code of a link and add it to allTagsHTML */
       //allTagsHTML += '<li><a href="#tag-' + tag + '">' + tag + '</a>' + ' (' + allTags[tag] + ') </li> ';
       const tagLinkHTML = calculateTagClass(allTags[tag], tagsParams);
-      console.log('tagLinkHTML:', tagLinkHTML);
+      //console.log('tagLinkHTML:', tagLinkHTML);
 
       allTagsHTML += '<li><a href="#tag-' + tag + '" class="tag-size-' + tagLinkHTML + '">' + tag  + '</a></li> ';
     }
@@ -208,21 +208,28 @@
 
 
   const generateAuthors = function(){
-    let allAuthors = [];
+    let allAuthors = {};
     const articles = document.querySelectorAll(optArticleSelector);
     for(let article of articles){
       const authorWraper = article.querySelector(optArticleAuthorSelector);
-      let html ='';
+      //let html ='';
       const author = article.getAttribute('data-author');
       const linkHTML = '<li><a href="#' + author + '">' + author + '</a></li>';
-      html = html +  linkHTML;
-      if(allAuthors.indexOf(linkHTML) == -1){
-        allAuthors.push(linkHTML);
+      //html = html +  linkHTML;
+      if(!allAuthors[author]){
+        allAuthors[author] = 1;
+      } else {
+        allAuthors[author]++;
       }
       authorWraper.innerHTML = linkHTML;
     }
     const authorList = document.querySelector(optAuthorsListSelector);
-    authorList.innerHTML = allAuthors.join(' ');
+    //authorList.innerHTML = allAuthors.join(' ');
+    let allAuthorsHTML = '';
+    for(let articleAuthor in allAuthors){
+      allAuthorsHTML += '<li><a href="' + articleAuthor + '">' + articleAuthor + ' ' + '</a>(' + allAuthors[articleAuthor] + ')</li>';
+    }
+    authorList.innerHTML = allAuthorsHTML;
     
   }
   generateAuthors ();
@@ -240,7 +247,7 @@
     const clickedElement = this;
     const href = clickedElement.getAttribute('href');
     const author = href.replace('#','');
-    const activeLinks = document.querySelectorAll('a.active[href^="#-"]');
+    const activeLinks = document.querySelectorAll('.list-authors a.active');
     for (let activeLink of activeLinks){
       activeLink.classList.remove('active');
     }
