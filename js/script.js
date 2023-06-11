@@ -148,7 +148,7 @@
       const tagLinkHTML = calculateTagClass(allTags[tag], tagsParams);
       console.log('tagLinkHTML:', tagLinkHTML);
 
-      allTagsHTML += '<li><a href="#tag-' + tag + '" class="tag-size-' + tagLinkHTML + '">' + tag  + '</a>'+ ' (' + allTags[tag] + ')</li> ';
+      allTagsHTML += '<li><a href="#tag-' + tag + '" class="tag-size-' + tagLinkHTML + '">' + tag  + '</a></li> ';
     }
     /* [NEW] END LOOP: for each tag in allTags: */
 

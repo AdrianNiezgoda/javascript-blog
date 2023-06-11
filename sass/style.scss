@@ -92,6 +92,35 @@ body {
   }
 }
 
+.tag-size-1 {
+  font-size: 14px;
+  color: yellowgreen;
+}
+
+.tag-size-2 {
+  font-size: 18px;
+  color: blue;
+}
+
+.tag-size-3 {
+  font-size: 24px;
+  color: red;
+}
+
+.tag-size-4 {
+  font-size: 32px;
+  color: teal;
+}
+
+.tag-size-5 {
+  font-size: 40px;
+  color: peru;
+}
+
+.tags li {
+  display: inline-block;
+  padding: 0 10px;
+}
 /* Authors */
 
 .authors {
