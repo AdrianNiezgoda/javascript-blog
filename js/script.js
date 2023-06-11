@@ -33,6 +33,8 @@
   const optArticleSelector = '.post',
     optTitleSelector = '.post-title',
     optTitleListSelector = '.titles',
+    optCloudClassCount = '5',
+    optCloudClassPrefix = 'tag-size-',
     optArticleAuthorSelector = '.post-author';
 
     function generateTitleLinks(customSelector = ''){
@@ -85,7 +87,15 @@
     }
     return params;
   };
+  const calculateTagClass = function(count, params){
+    const normalizedCount = count - params.min;
+    const normalizedMax = params.max - params.min;
+    const percentage = normalizedCount / normalizedMax;
+    const classNumber = Math.floor( percentage * (optCloudClassCount - 1) + 1 );
 
+    return optCloudClassPrefix,
+    classNumber;
+  };
   function generateTags(){
     
     const optArticleTagsSelector = '.post-tags .list';
@@ -134,7 +144,11 @@
     /* [NEW] START LOOP: for each tag in allTags: */
     for(let tag in allTags){
       /* [NEW] generate code of a link and add it to allTagsHTML */
-      allTagsHTML += '<li><a href="#tag-' + tag + '">' + tag + '</a>' + ' (' + allTags[tag] + ') </li> ';
+      //allTagsHTML += '<li><a href="#tag-' + tag + '">' + tag + '</a>' + ' (' + allTags[tag] + ') </li> ';
+      const tagLinkHTML = calculateTagClass(allTags[tag], tagsParams);
+      console.log('tagLinkHTML:', tagLinkHTML);
+
+      allTagsHTML += '<li><a href="#tag-' + tag + '" class="tag-size-' + tagLinkHTML + '">' + tag  + '</a>'+ ' (' + allTags[tag] + ')</li> ';
     }
     /* [NEW] END LOOP: for each tag in allTags: */
 
@@ -179,7 +193,7 @@
   
   function addClickListenersToTags(){
     /* find all links to tags */
-    const links = document.querySelectorAll('.post-tags a');
+    const links = document.querySelectorAll('.list-tags a');
     /* START LOOP: for each link */
     for (let link of links) {
       /* add tagClickHandler as event listener for that link */
